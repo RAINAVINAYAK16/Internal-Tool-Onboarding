@@ -1,6 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 
+
+console.log (import.meta.env.VITE_API_URL);
+
+
 function MaterialsBot() {
     const [question, setQuestion] = useState("");
     const [answer, setAnswer] = useState("");
@@ -8,7 +12,7 @@ function MaterialsBot() {
     async function generateresponse() {
         setAnswer("Thinking...");
         const response = await axios({
-            url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDJ8tHxFIuUv39DSrNGX8i1nRUjqFeM7RA",
+            url: import.meta.env.VITE_API_URL,
             method: "post",
             data: {
                 contents: [
@@ -21,8 +25,8 @@ function MaterialsBot() {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-            <h1 className="text-4xl font-extrabold mb-8">IOCL Expert Advisor</h1>
+        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white font-sans">
+            <h1 className="text-4xl font-display font-extrabold mb-8">IOCL Expert Advisor</h1>
             <textarea 
                 value={question} 
                 onChange={(e) => setQuestion(e.target.value)} 
@@ -32,7 +36,7 @@ function MaterialsBot() {
             ></textarea>
             <button 
                 onClick={generateresponse} 
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition-colors duration-300 ease-in-out"
+                className="bg-orange-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4 transition-colors duration-300 ease-in-out"
             >
                 Ask our IOCL chatbot anything :)
             </button>
