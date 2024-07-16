@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom';
 import Assessments from '../assets/Assessments.svg';
 import Chatbot from '../assets/Chatbot.jpg';
 import IndianOilLogo from '../assets/IndianOilLogo.png';
+import IOCL_Building from '../assets/IOCL_Building.avif';
+import IOCL_Petrol_Pump from '../assets/IOCL_Petrol_Pump.jpg';
+import IOCL_Refineries from '../assets/IOCL_Refineries.avif';
 import Review from '../assets/Review.png';
+import Dropdown from './dropdown';
 import './homepage.css';
+
 
 const HomePage = () => {
   const [windowSize, setWindowSize] = useState({
@@ -50,16 +55,43 @@ const HomePage = () => {
 
   const positions = calculateTrianglePositions();
 
+  const backgroundImages = [IOCL_Building, IOCL_Petrol_Pump, IOCL_Refineries];
+  const [currentBackgroundIndex, setCurrentBackgroundIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentBackgroundIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
+
+
   return (
     <div className="min-h-screen flex flex-col bg-[#d0eaff]">
-      <header className="bg-[#040720] shadow-md w-full">
+    <div className="absolute inset-0 z-0">
+    {backgroundImages.map((image, index) => (
+            <motion.img
+              key={index}
+              src={image}
+              alt={`Background ${index + 1}`}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${currentBackgroundIndex === index ? 'opacity-100' : 'opacity-0'}`}
+              style={{ zIndex: index === currentBackgroundIndex ? 1 : 0 }}
+              initial={{ opacity: index === 0 ? 1 : 0 }}
+              animate={{ opacity: currentBackgroundIndex === index ? 1 : 0 }}
+              transition={{ duration: 1 }}
+            />
+          ))}
+    </div>
+      <header className="bg-[#0D0B49] shadow-md w-full relative z-20">
         <div className="container mx-auto px-4 py-2">
           <div className="flex flex-col sm:flex-row items-center justify-between">
             <div className="flex items-center mb-4 sm:mb-0">
               <img src={IndianOilLogo} alt="Logo" className="logo object-contain w-16 h-16 sm:w-20 sm:h-20" />
-              <h4 className="ml-2 font-bold text-white font-orbitron text-sm sm:text-base md:text-lg lg:text-xl">
+              <h1 className="ml-2 font-bold text-white font-orbitron text-sm sm:text-base md:text-lg lg:text-xl">
                 IOCL Internal Onboarding
-              </h4>
+              </h1>
             </div>
             <nav className="flex flex-wrap justify-center space-x-2 sm:space-x-4">
               <Link to="/" className="nav-link text-sm sm:text-base text-white hover:text-yellow-200 transition-colors duration-200">Home</Link>
@@ -67,13 +99,15 @@ const HomePage = () => {
               <Link to="/assessment" className="nav-link text-sm sm:text-base text-white hover:text-yellow-200 transition-colors duration-200">Assessment</Link>
               <Link to="/performances" className="nav-link text-sm sm:text-base text-white hover:text-yellow-200 transition-colors duration-200">Performances</Link>
               <Link to="/help" className="nav-link text-sm sm:text-base text-white hover:text-yellow-200 transition-colors duration-200">Help</Link>
+              <Link to="/logout" className="nav-link text-sm sm:text-base text-white hover:text-yellow-200 transition-colors duration-200">LogOut</Link>
             </nav>
           </div>
         </div>
       </header>
       <main className="flex-grow flex flex-col">
         <div className="relative h-screen">
-          <div className="triangle-container absolute inset-0">
+          <div className="triangle-container absolute inset-0 flex">
+            <Dropdown />
             {['top', 'bottomLeft', 'bottomRight'].map((position, index) => (
               <motion.div
                 key={position}
@@ -89,7 +123,7 @@ const HomePage = () => {
                 }}
               >
                 <Link to={index === 0 ? "/materialsbot" : "#"}>
-                  <div className="flex flex-col items-center bg-white rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out triangle-content">
+                  <div className="flex flex-col items-center bg-white rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out triangle-content relative z-40">
                     <div className={`bg-${index === 0 ? 'blue' : index === 1 ? 'green' : 'red'}-500 rounded-full flex items-center justify-center icon-container`}>
                       <img src={`${index === 0 ? Chatbot : index === 1 ? Assessments : Review}`} alt={index === 0 ? "Chatbot" : index === 1 ? "Assessments" : "Performance Reviews"} className="icon" />
                     </div>
@@ -102,28 +136,55 @@ const HomePage = () => {
             ))}
           </div>
         </div>
-        <div className="bg-white py-16">
+        <div className="bg-[#d0eaff] py-8 mt-n-2">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold mb-8 text-center">Welcome to IOCL Internal Onboarding</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-4">Latest News</h3>
-                <p>Stay updated with the latest announcements and news from IOCL.</p>
-              </div>
-              <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-4">Training Schedule</h3>
-                <p>View upcoming training sessions and workshops.</p>
-              </div>
-              <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-4">Employee Resources</h3>
-                <p>Access important documents and resources for your onboarding process.</p>
-              </div>
+              <motion.div
+                className="hover-item"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Link to="https://x.com/IndianOilcl?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Escreen-name%3AindianOilcl%7Ctwcon%5Es2" className="block">
+                  <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <h3 className="text-xl font-semibold mb-4">Latest News</h3>
+                    <p>Stay updated with the latest announcements and news from IOCL.</p>
+                  </div>
+                </Link>
+              </motion.div>
+              <motion.div
+                className="hover-item"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Link to="https://iocl.com/download/Data-Privacy-Policy-Online-Data-Collection.pdf" className="block">
+                  <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <h3 className="text-xl font-semibold mb-4">Data Privacy Policy</h3>
+                    <p>View the latest guidelines on our data protection and privacy.</p>
+                  </div>
+                </Link>
+              </motion.div>
+              <motion.div
+                className="hover-item"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Link to="https://spandan.indianoil.co.in/ePIC/ValidateUser.jsp" className="block">
+                  <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+                    <h3 className="text-xl font-semibold mb-4">Employee Resources</h3>
+                    <p>Access important documents and resources for your onboarding process.</p>
+                  </div>
+                </Link>
+              </motion.div>
             </div>
           </div>
         </div>
       </main>
     </div>
-  );
+  );    
 };
 
 export default HomePage;
