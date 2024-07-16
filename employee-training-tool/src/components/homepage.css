@@ -10,7 +10,6 @@ body {
   font-family: 'Orbitron', sans-serif;
 }
 
-/* Base styles (for mobile phones) */
 .header-container {
   padding: 0.75rem;
 }
@@ -52,7 +51,10 @@ body {
   font-size: 0.75rem;
 }
 
-/* Tablet display design (601×962 to 1280×800) */
+.bg-radial-gradient {
+  background: radial-gradient(circle, #ffffff, #e0f7ff);
+}
+
 @media (min-width: 601px) and (max-width: 1280px) {
   .header-container {
     padding: 1rem;
@@ -96,7 +98,6 @@ body {
   }
 }
 
-/* Desktop display design (1280×720 to 1920×1080) */
 @media (min-width: 1281px) {
   .header-container {
     padding: 1.5rem;
@@ -136,7 +137,6 @@ body {
   }
 }
 
-/* Large desktop displays (1920×1080 and above) */
 @media (min-width: 1920px) {
   .header-container {
     padding: 2rem;
