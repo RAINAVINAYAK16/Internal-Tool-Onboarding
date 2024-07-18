@@ -10,30 +10,30 @@ const Dropdown = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="h-1/2 w-1/8 flex flex-col mt-60 items-center">
       <button
         onClick={toggleDropdown}
-        className="px-4 py-2 bg-[#040720] text-white rounded-lg shadow-md focus:outline-none"
+        className="w-48 h-24 bg-[#89CFF0] text-black-500 rounded-full shadow-md focus:outline-none flex items-center justify-center text-xl font-bold"
       >
         More
       </button>
       <motion.div
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: isOpen ? 1 : 0, height: isOpen ? 'auto' : 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isOpen ? 1 : 0 }}
         transition={{ duration: 0.3 }}
-        className="absolute left-0 mt-2 bg-white rounded-lg shadow-lg overflow-hidden z-20"
+        className="w-full bg-[#89CFF0] rounded-lg shadow-lg overflow-hidden z-20 mt-4"
       >
-        <ul className="flex flex-col text-[#040720]">
-          <li className="px-4 py-2 hover:bg-blue-100">
+        <ul className="flex flex-col text-[#040720] h-full justify-center">
+          <li className="px-4 py-4 hover:bg-blue-100">
             <Link to="/safety-procedures">Safety Procedures</Link>
           </li>
-          <li className="px-4 py-2 hover:bg-blue-100">
+          <li className="px-4 py-4 hover:bg-blue-100">
             <Link to="/technical-skills">Technical Skills</Link>
           </li>
-          <li className="px-4 py-2 hover:bg-blue-100">
+          <li className="px-4 py-4 hover:bg-blue-100">
             <Link to="/mous-terms">MoUs and T&Cs</Link>
           </li>
-          <li className="px-4 py-2 hover:bg-blue-100">
+          <li className="px-4 py-4 hover:bg-blue-100">
             <Link to="/settings">Settings</Link>
           </li>
         </ul>
