@@ -145,7 +145,7 @@ const HomePage = () => {
                   transform: 'translate(-50%, -50%)',
                 }}
               >
-                <Link to={index === 0 ? "/materialsbot" : "#"}>
+                <Link to={index === 0 ? "/materialsbot" : "/performanceassessments"}>
                   <div className="flex flex-col items-center bg-[#89CFF0] rounded-full shadow-md hover:shadow-lg transition-shadow duration-300 ease-in-out triangle-content relative z-40">
                     <div className={`bg-${index === 0 ? 'blue' : index === 1 ? 'green' : 'red'}-500 rounded-full flex items-center justify-center icon-container`}>
                       <img src={`${index === 0 ? Chatbot : index === 1 ? Assessments : Review}`} alt={index === 0 ? "Chatbot" : index === 1 ? "Assessments" : "Performance Reviews"} className="icon" />
