@@ -1,11 +1,12 @@
+import axios from 'axios';
 import { useState } from 'react';
 import IndianOilLogo from '../assets/IndianOilLogo.png';
 
 const questions = [
     {
-        question: "What is the capital of France?",
-        options: ["Berlin", "Madrid", "Paris", "Rome"],
-        answer: "Paris"
+        question: "When was IndianOil founded?",
+        options: ["1956", "1965", "1959", "1947"],
+        answer: "1959"
     },
     {
         question: "Which planet is known as the Red Planet?",
@@ -81,7 +82,7 @@ function TestPage() {
         setAnswers(newAnswers);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         let newScore = 0;
         questions.forEach((question, index) => {
             if (question.answer === answers[index]) {
@@ -90,6 +91,17 @@ function TestPage() {
         });
         setScore(newScore);
         setSubmitted(true);
+
+        try {
+            await axios.post('http://localhost:5000/send-email', {
+                score: newScore,
+                totalQuestions: questions.length
+            });
+            console.log('Email sent successfully');
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+
     };
 
     return (

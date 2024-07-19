@@ -12,7 +12,7 @@ function PerformanceAssessments() {
             </header>
             <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-2xl w-full">
                 <h1 className="text-3xl font-extrabold mb-6 text-center">Performance Assessments</h1>
-                <p className="text-lg mb-4">You have 1 tests, consisting of 10 questions. You have 15 minutes to complete the test.</p>
+                <p className="text-lg mb-4">You have 1 test, consisting of 10 questions. You have 15 minutes to complete the test.</p>
                 <Link to="/take-test" className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded mb-4 transition-colors duration-300 ease-in-out text-center block">
                     Take Test
                 </Link>
